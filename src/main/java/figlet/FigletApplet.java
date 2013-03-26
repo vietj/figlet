@@ -2,7 +2,6 @@ package figlet;
 
 import java.awt.*;
 import java.util.*;
-import java.net.*;
 
 
 /**
@@ -15,7 +14,7 @@ public
 class FigletApplet extends java.applet.Applet implements Runnable {
   private TextArea textArea;
   private TextField textField, textFieldCurrentFont, widthField;
-  private List list;
+  // private List list;
   private Button buttonClearText, buttonClear, buttonFont, buttonConvert,
                  buttonWidthMore, buttonWidthLess;
   private Checkbox leftJustifyCB, centerCB, lineWrapCB, wordWrapCB;
@@ -34,7 +33,10 @@ class FigletApplet extends java.applet.Applet implements Runnable {
   }
 
   public void init() {
-    /* font path list */
+/*
+    */
+/* font path list *//*
+
     fontList = new Vector();
     String path;
     int i = 0;
@@ -44,7 +46,9 @@ class FigletApplet extends java.applet.Applet implements Runnable {
     }
     figletFontList = new FigletFont[i];
 
-    /* awt initialisation */
+    */
+/* awt initialisation *//*
+
     GridBagLayout gridBagLayout = new GridBagLayout();
     GridBagConstraints gridBagConstraints = new GridBagConstraints();
     setLayout(gridBagLayout);
@@ -68,7 +72,9 @@ class FigletApplet extends java.applet.Applet implements Runnable {
     add(resultPanel);
 
     
-    /* Result Panel */
+    */
+/* Result Panel *//*
+
 
     GridBagLayout gridBagLayoutResult = new GridBagLayout();
     gridBagConstraints = new GridBagConstraints();
@@ -89,7 +95,9 @@ class FigletApplet extends java.applet.Applet implements Runnable {
     resultPanel.add(buttonClear);
 
 
-    /* Text Panel */
+    */
+/* Text Panel *//*
+
 
     GridBagLayout gridBagLayoutText = new GridBagLayout();
     gridBagConstraints = new GridBagConstraints();
@@ -198,7 +206,9 @@ class FigletApplet extends java.applet.Applet implements Runnable {
     gridBagLayoutText.setConstraints(buttonConvert, gridBagConstraints);
     textPanel.add(buttonConvert);
 
-    /* Font Panel */
+    */
+/* Font Panel *//*
+
 
     GridBagLayout gridBagLayoutFont = new GridBagLayout();
     gridBagConstraints = new GridBagConstraints();
@@ -221,6 +231,7 @@ class FigletApplet extends java.applet.Applet implements Runnable {
     gridBagConstraints.gridwidth = GridBagConstraints.REMAINDER;
     gridBagLayoutFont.setConstraints(textFieldCurrentFont, gridBagConstraints);
     fontPanel.add(textFieldCurrentFont);
+*/
 
   
   }
@@ -232,6 +243,7 @@ class FigletApplet extends java.applet.Applet implements Runnable {
    * (because it may be long)
    */ 
   public void run() {
+/*
     if (Thread.currentThread() == fontLoading) {
       textFieldCurrentFont.setText("Loading...");
       int s = list.getSelectedIndex();
@@ -252,19 +264,27 @@ class FigletApplet extends java.applet.Applet implements Runnable {
       buttonConvert.enable();
       list.enable();
    }
+*/
   }
   /**
    * action() mainly button actions
    */
   public boolean action(Event evt, Object arg) {
-    /* handle the buttons */
+/*
+    */
+/* handle the buttons *//*
+
     if (evt.target instanceof Button) {
-      /* clearing the input & output text */
+      */
+/* clearing the input & output text *//*
+
       if ( ((String) arg).equals("Clear the output") )
         textArea.setText("");
       else if ( ((String) arg).equals("Clear the input") )
         textField.setText("");
-      /* the + & - buttons for line width */
+      */
+/* the + & - buttons for line width *//*
+
       else if ( ((String) arg).equals("+") && (splitLineWidth < 120) ) {
         splitLineWidth++;  
         widthField.setText(new Integer(splitLineWidth).toString());
@@ -273,9 +293,13 @@ class FigletApplet extends java.applet.Applet implements Runnable {
         splitLineWidth--;
          widthField.setText(new Integer(splitLineWidth).toString());
       }
-      /* asking for an output */
+      */
+/* asking for an output *//*
+
       else if ( ((String) arg).equals("Convert") )
-        /* if needed must launch a thread to load the font */
+        */
+/* if needed must launch a thread to load the font *//*
+
         if (figletFontList[list.getSelectedIndex()] == null) {
           buttonConvert.disable();
           list.disable();
@@ -289,12 +313,16 @@ class FigletApplet extends java.applet.Applet implements Runnable {
                                       leftJustify,
                                       splitLineWidth));
     } 
-    /* handle the 2 checkboxes */
+    */
+/* handle the 2 checkboxes *//*
+
     else if (evt.target instanceof Checkbox) {
       splitLineAtWord = wordWrapCB.getState();
       leftJustify = leftJustifyCB.getState();
     }
-    /* handle the font list */
+    */
+/* handle the font list *//*
+
     else if (evt.target instanceof List) {
       int s = list.getSelectedIndex();
       if (figletFontList[s] == null) {
@@ -305,6 +333,7 @@ class FigletApplet extends java.applet.Applet implements Runnable {
       } else
         textFieldCurrentFont.setText(figletFontList[s].fontName);
     }
+*/
     return true;
   }
 }

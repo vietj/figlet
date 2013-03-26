@@ -35,7 +35,7 @@ class FigletFont {
       return new String(font[c][l]);
   }
 
-  public FigletFont(URL aURL) {
+  public FigletFont(URL aURL) throws IOException {
     font = new char[256][][];
     InputStream conn;
     DataInputStream data;
@@ -77,10 +77,12 @@ class FigletFont {
             int iNormal = i;
             boolean abnormal = true;
             if (h == 0) { 
-              try
+              try {
                 i = Integer.parseInt(dummyS);
-              catch (NumberFormatException e) 
+              }
+              catch (NumberFormatException e) {
                 abnormal = false;
+              }
               if (abnormal)
                 dummyS = data.readLine();
               else
@@ -99,7 +101,8 @@ class FigletFont {
           }
         }
       }
-    } catch (IOException e) 
+    } catch (IOException e) {
       System.out.println("IO Error: " + e.getMessage());
+    }
   }
 }
