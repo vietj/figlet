@@ -14,28 +14,13 @@ import java.util.StringTokenizer;
  *         birthday!)
  */
 class FigletFont {
-  private char hardblank;
-  final int height;
-  final int heightWithoutDescenders;
-  final int maxLine;
-  final int smushMode;
-  final char font[][][];
-  final String fontName;
 
-  public char[][][] getFont() {
-    return font;
-  }
-
-  public char[][] getChar(int c) {
-    return font[c];
-  }
-
-  public String getCharLineString(int c, int l) {
-    if (font[c][l] == null)
-      return null;
-    else
-      return new String(font[c][l]);
-  }
+  private final int height;
+  private final int heightWithoutDescenders;
+  private final int maxLine;
+  private final int smushMode;
+  private final char font[][][];
+  private final String fontName;
 
   public FigletFont(URL aURL) throws IOException {
     font = new char[256][][];
@@ -47,7 +32,7 @@ class FigletFont {
     String dummyS = data.readLine();
     StringTokenizer st = new StringTokenizer(dummyS, " ");
     String s = st.nextToken();
-    hardblank = s.charAt(s.length() - 1);
+    char hardblank = s.charAt(s.length() - 1);
     height = Integer.parseInt(st.nextToken());
     heightWithoutDescenders = Integer.parseInt(st.nextToken());
     maxLine = Integer.parseInt(st.nextToken());
@@ -101,6 +86,33 @@ class FigletFont {
     }
   }
 
+  public int getHeight() {
+    return height;
+  }
+
+  public int getMaxLine() {
+    return maxLine;
+  }
+
+  public int getSmushMode() {
+    return smushMode;
+  }
+
+  public int getHeightWithoutDescenders() {
+    return heightWithoutDescenders;
+  }
+
+  public String getFontName() {
+    return fontName;
+  }
+
+  public String getCharLineString(int c, int l) {
+    if (font[c][l] == null)
+      return null;
+    else
+      return new String(font[c][l]);
+  }
+
   /**
    * move a banner to the right (for centering)
    */
@@ -114,6 +126,7 @@ class FigletFont {
       result += shift + st.nextToken() + '\n';
     return result;
   }
+
   /**
    * append a new banner line (center if needed)
    */
@@ -147,8 +160,6 @@ class FigletFont {
         else
           word = ' ' + w;
         String newLine = append(line, word);
-        //System.out.println("word:" + word + "line:" +
-        //                  line + "new line:" + newLine);
         if ((width(newLine) > splitWidth) && (line.length() > 0)) {
           result = addLine(result, line + '\n',
               leftJustify, splitWidth);

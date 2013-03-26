@@ -12,11 +12,9 @@ public class TestFiglet {
   @Test
   public void test() throws Exception {
 
-    URL url = FigletApplet.class.getResource("3-d.flf");
+    URL url = FigletApplet.class.getResource("Banner.flf");
     FigletFont font = new FigletFont(url);
-    String s = font.convert("HELLO", false, true, 10);
+    String s = font.convert("A B C D E F G H", false, false, 40);
     System.out.println(s);
-
   }
-
 }
