@@ -5,6 +5,9 @@ import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.StringTokenizer;
 
 /**
@@ -22,14 +25,34 @@ class FigletFont {
   private final char font[][][];
   private final String fontName;
 
-  public FigletFont(URL aURL) throws IOException {
-    font = new char[256][][];
+  private static Iterator<String> iterator(URL url) throws IOException {
     InputStream conn;
-
-    conn = aURL.openStream();
+    conn = url.openStream();
     DataInputStream data = new DataInputStream(new BufferedInputStream(conn));
+    ArrayList<String> list = new ArrayList<String>();
+    while (true) {
+      String line = data.readLine();
+      if (line != null) {
+        list.add(line);
+      } else {
+        break;
+      }
+    }
+    return list.iterator();
+  }
 
-    String dummyS = data.readLine();
+  public FigletFont(URL url) throws IOException {
+    this(iterator(url));
+  }
+
+  public FigletFont(String font) {
+    this(Arrays.<String>asList(font.split("\n")).iterator());
+  }
+
+  private  FigletFont(Iterator<String> lines) {
+    font = new char[256][][];
+
+    String dummyS = lines.next();
     StringTokenizer st = new StringTokenizer(dummyS, " ");
     String s = st.nextToken();
     char hardblank = s.charAt(s.length() - 1);
@@ -41,18 +64,18 @@ class FigletFont {
 
       /* try to read the font name as the first word of
          the first comment line, but this is not standardized ! */
-    st = new StringTokenizer(data.readLine(), " ");
+    st = new StringTokenizer(lines.next(), " ");
     if (st.hasMoreElements())
       fontName = st.nextToken();
     else
       fontName = "";
 
     for (int i = 0;i < dummyI - 1;i++) // skip the comments
-      dummyS = data.readLine();
+      dummyS = lines.next();
     for (int i = 32;i < 256;i++) {  // for all the characters
       //System.out.print(i+":");
       for (int h = 0;h < height;h++) {
-        dummyS = data.readLine();
+        dummyS = lines.hasNext() ? lines.next() : null;
         if (dummyS == null)
           i = 256;
         else {
@@ -67,7 +90,7 @@ class FigletFont {
               abnormal = false;
             }
             if (abnormal)
-              dummyS = data.readLine();
+              dummyS = lines.next();
             else
               i = iNormal;
           }
