@@ -1,3 +1,19 @@
+/*
+ * This is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation; either version 2.1 of
+ * the License, or (at your option) any later version.
+ *
+ * This software is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this software; if not, write to the Free
+ * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+ * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+ */
 package figlet;
 
 import java.io.BufferedInputStream;
@@ -11,10 +27,9 @@ import java.util.Iterator;
 import java.util.StringTokenizer;
 
 /**
- * FigletFont Java
+ * FigletFont Java.
  *
- * @author Benoit Rigaut CERN July 96 www.rigaut.com benoit@rigaut.com released with GPL the 13th of november 2000 (my
- *         birthday!)
+ * @author Benoit Rigaut CERN July 96 www.rigaut.com benoit@rigaut.com
  */
 class FigletFont {
 
